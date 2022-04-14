@@ -1,5 +1,7 @@
 # golang_blog_frontend
 
+golang_blog简易前端，Vue实现
+
 ## Project setup
 ```
 npm install
