@@ -4,9 +4,12 @@
 
  import axios from "axios";
  import { getToken } from "@/utils/storage";
+
  
- const Axios = axios.create({
-   baseURL: "http://175.27.244.157:8085",
+ export const baseURL = "http://175.27.244.157:8085";
+
+ export const Axios = axios.create({
+   baseURL: baseURL,
    timeout: 5000,
  });
  
@@ -41,5 +44,4 @@
    }
  );
  
- export default Axios;
  

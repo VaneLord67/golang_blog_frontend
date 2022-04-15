@@ -1,18 +1,17 @@
 export function setToken(content) {
-    if (!localStorage) {
-      throw new Error("您的浏览器不支持localStorage，请尝试更新浏览器");
-    }
-    localStorage.setItem("token", content);
+  if (!localStorage) {
+    throw new Error("您的浏览器不支持localStorage，请尝试更新浏览器");
   }
-  export function getToken() {
-    if (!localStorage) {
-      return "";
-    }
-    const token = localStorage.getItem("token") || "";
-    return token;
+  localStorage.setItem("token", content);
+}
+export function getToken() {
+  if (!localStorage) {
+    return "";
   }
-  
-  export function removeToken() {
-    localStorage.removeItem("token");
-  }
-  
+  const token = localStorage.getItem("token") || "";
+  return token;
+}
+
+export function removeToken() {
+  localStorage.removeItem("token");
+}
