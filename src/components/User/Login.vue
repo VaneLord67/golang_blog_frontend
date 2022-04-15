@@ -2,12 +2,10 @@
   <div class="outer">
     <div class="top">
       <el-menu
-        :default-active="activeIndex"
         class="el-menu-demo"
         mode="horizontal"
         background-color="#000000"
         text-color="#ffffff"
-        @select="handleSelect"
       >
         <el-menu-item index="1">
           <a href="https://www.ele.me" target="_self">首页</a>
@@ -65,6 +63,7 @@
 <script>
 import { setToken } from "@/utils/storage.js";
 import {baseURL} from "@/service.js";
+import {nanoid} from 'nanoid';
 export default {
   name: "Login",
   data() {
@@ -78,17 +77,18 @@ export default {
       captchaId: "",
       imageUrl: "",
       imgUrl: "",
+      nanoid: "",
     };
   },
   methods: {
     VerifyCaptcha() {
       let url = "/verify/" + this.captchaId + "/" + this.formLabelAlign.captcha;
-      return this.$axios.get(url).then((res) => {
+      return this.$axios.get(url, {params: {nanoid: this.nanoid}}).then((res) => {
         if (res == "验证成功") {
-          console.log("succ");
+          // console.log("succ");
           return true;
         } else {
-          console.log("err");
+          // console.log("err");
           return false;
         }
       });
@@ -110,20 +110,32 @@ export default {
           return alert("验证码错误！");
         }
         this.$axios.post("/user/login", loginDto).then((res) => {
+          let jwt = res.Data
+          if (jwt == null) {
+            alert("账号或密码错误")
+            this.formLabelAlign.username = ""
+            this.formLabelAlign.password = ""
+            this.formLabelAlign.captcha = ""
+            this.GetCaptchaPicture()
+            return
+          }
           setToken(res.Data.Jwt);
           alert("登录成功！");
         });
       });
     },
     GetCaptcha() {
-      return this.$axios.get("/captcha").then((res) => {
+      this.nanoid = nanoid()
+      return this.$axios.get("/captcha", {params: {
+        nanoid: this.nanoid
+      }}).then((res) => {
         this.captchaId = res.captchaId;
         this.imageUrl = res.imageUrl;
       });
     },
     GetCaptchaPicture() {
       this.GetCaptcha().then(() => {
-        this.imgUrl = `${baseURL}/captcha/${this.captchaId}.png`;
+        this.imgUrl = `${baseURL}/captcha/${this.captchaId}.png?nanoid=${this.nanoid}`;
       });
     },
   },
