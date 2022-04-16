@@ -9,13 +9,13 @@
       <router-link to="/">首页</router-link>
     </el-menu-item>
     <el-menu-item index="2">
-      <a href="https://www.ele.me" target="_self">博客页</a>
+      <router-link to="/article/home">博客页</router-link>
     </el-menu-item>
     <el-menu-item index="3" class="menuRight">
       <router-link to="/login">登录</router-link>
     </el-menu-item>
     <el-menu-item index="4" class="menuRight">
-      <a href="https://www.ele.me" target="_self">注册</a>
+      <router-link to="/register">注册</router-link>
     </el-menu-item>
   </el-menu>
 </template>
