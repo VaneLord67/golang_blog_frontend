@@ -146,8 +146,13 @@ export default {
 </script>
 
 <style scoped>
+.outer {
+  height: 100vh;
+}
+
 .top {
   background-color: #000000;
+  height: 50px;
 }
 
 .login {
@@ -160,10 +165,7 @@ export default {
 }
 
 .back {
-  margin: 0px;
-  padding: 0px;
   background: url("../../assets/mount&blade.jpg") no-repeat;
-  background-size: 100%, 100%;
-  height: 100vh;
+  height: calc(100% - 50px);
 }
 </style>
