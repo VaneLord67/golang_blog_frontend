@@ -1,19 +1,7 @@
 <template>
   <div class="outer">
     <div class="top">
-      <el-menu
-        class="el-menu-demo"
-        mode="horizontal"
-        background-color="#000000"
-        text-color="#ffffff"
-      >
-        <el-menu-item index="1">
-          <a href="https://www.ele.me" target="_self">首页</a>
-        </el-menu-item>
-        <el-menu-item index="2">
-          <a href="https://www.ele.me" target="_self">博客页</a>
-        </el-menu-item>
-      </el-menu>
+      <Navigation/>
     </div>
     <div class="back">
       <div class="login">
@@ -63,8 +51,12 @@
 import { setToken } from "@/utils/storage.js";
 import { baseURL } from "@/service.js";
 import { nanoid } from "nanoid";
+import Navigation from '../common/Navigation.vue'
 export default {
   name: "Login",
+  components: {
+    Navigation,
+  },
   data() {
     return {
       labelPosition: "right",
