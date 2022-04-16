@@ -34,8 +34,12 @@ export default {
 <style scoped>
 .outer {
     height: 100vh;
+    overflow-y: hidden;
 }
 
+.search {
+    color: black;
+}
 
 .background {
   background: url("../../assets/HomePageBG.jpeg") no-repeat;
@@ -45,7 +49,7 @@ export default {
 
 .input {
   font-size: 50px;
-  padding-top: 55vh;
+  padding-top: 20vh;
   padding-left: 15vw;
   padding-right : 48vw;
 }

@@ -32,7 +32,7 @@
               placeholder="请输入验证码"
             ></el-input>
           </el-form-item>
-          <el-button type="success" @click="Login()" style="margin-left: 55px;">登录</el-button>
+          <el-button type="success" @click="Login()" class="loginBtn">登录</el-button>
           <el-button type="primary" @click="GetCaptchaPicture()"
             >刷新验证码</el-button
           >
@@ -166,6 +166,11 @@ export default {
 .back {
   background: url("../../assets/mount&blade.jpg") no-repeat;
   height: calc(100% - 50px);
+  background-size: 100% 100%;
+}
+
+.loginBtn {
+  margin-left: 10px; 
 }
 
 @media screen and (max-width: 980px) {
