@@ -13,7 +13,6 @@
         <el-menu-item index="2">
           <a href="https://www.ele.me" target="_self">博客页</a>
         </el-menu-item>
-        
       </el-menu>
     </div>
     <div class="back">
@@ -45,7 +44,7 @@
               placeholder="请输入验证码"
             ></el-input>
           </el-form-item>
-          <el-button type="success" @click="Login()">登录</el-button>
+          <el-button type="success" @click="Login()" style="margin-left: 55px;">登录</el-button>
           <el-button type="primary" @click="GetCaptchaPicture()"
             >刷新验证码</el-button
           >
@@ -62,8 +61,8 @@
 
 <script>
 import { setToken } from "@/utils/storage.js";
-import {baseURL} from "@/service.js";
-import {nanoid} from 'nanoid';
+import { baseURL } from "@/service.js";
+import { nanoid } from "nanoid";
 export default {
   name: "Login",
   data() {
@@ -83,15 +82,17 @@ export default {
   methods: {
     VerifyCaptcha() {
       let url = "/verify/" + this.captchaId + "/" + this.formLabelAlign.captcha;
-      return this.$axios.get(url, {params: {nanoid: this.nanoid}}).then((res) => {
-        if (res == "验证成功") {
-          // console.log("succ");
-          return true;
-        } else {
-          // console.log("err");
-          return false;
-        }
-      });
+      return this.$axios
+        .get(url, { params: { nanoid: this.nanoid } })
+        .then((res) => {
+          if (res == "验证成功") {
+            // console.log("succ");
+            return true;
+          } else {
+            // console.log("err");
+            return false;
+          }
+        });
     },
     Login() {
       if (
@@ -110,28 +111,33 @@ export default {
           return alert("验证码错误！");
         }
         this.$axios.post("/user/login", loginDto).then((res) => {
-          let jwt = res.Data
+          let jwt = res.Data;
           if (jwt == null) {
-            alert("账号或密码错误")
-            this.formLabelAlign.username = ""
-            this.formLabelAlign.password = ""
-            this.formLabelAlign.captcha = ""
-            this.GetCaptchaPicture()
-            return
+            alert("账号或密码错误");
+            this.formLabelAlign.username = "";
+            this.formLabelAlign.password = "";
+            this.formLabelAlign.captcha = "";
+            this.GetCaptchaPicture();
+            return;
           }
           setToken(res.Data.Jwt);
+
           alert("登录成功！");
         });
       });
     },
     GetCaptcha() {
-      this.nanoid = nanoid()
-      return this.$axios.get("/captcha", {params: {
-        nanoid: this.nanoid
-      }}).then((res) => {
-        this.captchaId = res.captchaId;
-        this.imageUrl = res.imageUrl;
-      });
+      this.nanoid = nanoid();
+      return this.$axios
+        .get("/captcha", {
+          params: {
+            nanoid: this.nanoid,
+          },
+        })
+        .then((res) => {
+          this.captchaId = res.captchaId;
+          this.imageUrl = res.imageUrl;
+        });
     },
     GetCaptchaPicture() {
       this.GetCaptcha().then(() => {
@@ -148,6 +154,7 @@ export default {
 <style scoped>
 .outer {
   height: 100vh;
+  overflow-y: hidden;
 }
 
 .top {
@@ -168,4 +175,31 @@ export default {
   background: url("../../assets/mount&blade.jpg") no-repeat;
   height: calc(100% - 50px);
 }
+
+@media screen and (max-width: 980px) {
+
+  .login {
+    padding-top: 5%;
+    padding-bottom: 5%;
+    position: relative;
+    top: 25%;
+    /* left: 15%; */
+    width: 70%;
+  }
+
+}
+
+@media screen and (max-width: 500px) {
+  .login {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .login {
+    width: 70%;
+  }
+}
+
+
 </style>
