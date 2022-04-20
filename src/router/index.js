@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import HomePage from '../components/Home/HomePage.vue'
 import Login from '../components/User/Login.vue'
 import Register from '../components/User/Register'
+import Article from '../components/article/Article'
 
 //创建并暴露一个路由器
 const router = new VueRouter({
@@ -22,6 +23,11 @@ const router = new VueRouter({
             path:'/register',
             component: Register,
         },
+		{
+			name:'article',
+			path:'/article',
+			component: Article,	
+		},
 	]
 })
 

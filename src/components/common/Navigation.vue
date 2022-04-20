@@ -27,6 +27,7 @@ export default {
 </script>
 
 <style scoped>
+
 .menuRight {
   position: relative;
   left: 80vw;
