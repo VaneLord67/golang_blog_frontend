@@ -12,10 +12,13 @@
       <router-link to="/article/home">博客页</router-link>
     </el-menu-item>
     <el-menu-item index="3" class="menuRight">
-      <router-link to="/login">登录</router-link>
+      <i class="el-icon-user-solid"></i>
     </el-menu-item>
     <el-menu-item index="4" class="menuRight">
       <router-link to="/register">注册</router-link>
+    </el-menu-item>
+    <el-menu-item index="5" class="menuRight">
+      <router-link to="/login">登录</router-link>
     </el-menu-item>
   </el-menu>
 </template>
@@ -29,7 +32,6 @@ export default {
 <style scoped>
 
 .menuRight {
-  position: relative;
-  left: 80vw;
+  float: right;
 }
 </style>

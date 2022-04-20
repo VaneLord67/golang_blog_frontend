@@ -7,33 +7,48 @@ import App from './App.vue'
 import VueRouter from 'vue-router'
 //引入路由器
 import router from './router'
-// markdown预览
-import VMdPreview from '@kangc/v-md-editor/lib/preview';
-import '@kangc/v-md-editor/lib/style/preview.css';
+// markdown
+import VMdEditor from '@kangc/v-md-editor/lib/codemirror-editor';
+import '@kangc/v-md-editor/lib/style/codemirror-editor.css';
 import githubTheme from '@kangc/v-md-editor/lib/theme/github.js';
 import '@kangc/v-md-editor/lib/theme/style/github.css';
 // highlightjs
 import hljs from 'highlight.js';
-VMdPreview.use(githubTheme, {
+// codemirror 编辑器的相关资源
+import Codemirror from 'codemirror';
+// mode
+import 'codemirror/mode/markdown/markdown';
+import 'codemirror/mode/javascript/javascript';
+import 'codemirror/mode/css/css';
+import 'codemirror/mode/htmlmixed/htmlmixed';
+import 'codemirror/mode/vue/vue';
+// edit
+import 'codemirror/addon/edit/closebrackets';
+import 'codemirror/addon/edit/closetag';
+import 'codemirror/addon/edit/matchbrackets';
+// placeholder
+import 'codemirror/addon/display/placeholder';
+// active-line
+import 'codemirror/addon/selection/active-line';
+// scrollbar
+import 'codemirror/addon/scroll/simplescrollbars';
+import 'codemirror/addon/scroll/simplescrollbars.css';
+// style
+import 'codemirror/lib/codemirror.css';
+VMdEditor.Codemirror = Codemirror;
+VMdEditor.use(githubTheme, {
   Hljs: hljs,
   config: {
     toc: {
-      includeLevel: [2, 3],
+      includeLevel: [1, 3],
     },
   },
 });
-Vue.use(VMdPreview);
-// markdown
-// import VueMarkdownEditor from '@kangc/v-md-editor';
-// import '@kangc/v-md-editor/lib/style/base-editor.css';
-// import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js';
-// VueMarkdownEditor.use(vuepressTheme);
-// Vue.use(VueMarkdownEditor);
 
+Vue.use(VMdEditor);
 Vue.use(ElementUI);
 Vue.use(VueRouter);
 Vue.prototype.$axios = Axios
-
 Vue.config.productionTip = false
 
 new Vue({

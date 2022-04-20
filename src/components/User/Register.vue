@@ -53,7 +53,7 @@
 import { setToken } from "@/utils/storage.js";
 import { baseURL } from "@/service.js";
 import { nanoid } from "nanoid";
-import Navigation from "../common/Navigation.vue";
+import Navigation from "../Common/Navigation";
 export default {
   name: "Register",
   components: {
@@ -85,6 +85,25 @@ export default {
             return false;
           }
         });
+    },
+    LoginAfterRegister() {
+      let loginDto = {
+        username: this.formLabelAlign.username,
+        password: this.formLabelAlign.password,
+      };
+      this.$axios.post("/user/login", loginDto).then((res) => {
+        let jwt = res.Data;
+        if (jwt == null) {
+          alert("账号或密码错误");
+          this.formLabelAlign.username = "";
+          this.formLabelAlign.password = "";
+          this.formLabelAlign.captcha = "";
+          this.GetCaptchaPicture();
+          return;
+        }
+        setToken(res.Data.Jwt);
+        this.$router.push({path: '/user/home'})
+      });
     },
     Register() {
       if (
@@ -120,6 +139,7 @@ export default {
             return;
           }
           alert("注册成功!");
+          this.LoginAfterRegister()
         });
       });
     },

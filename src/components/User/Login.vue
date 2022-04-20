@@ -51,7 +51,7 @@
 import { setToken } from "@/utils/storage.js";
 import { baseURL } from "@/service.js";
 import { nanoid } from "nanoid";
-import Navigation from '../common/Navigation.vue'
+import Navigation from '../Common/Navigation'
 export default {
   name: "Login",
   components: {

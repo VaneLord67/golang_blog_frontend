@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import Navigation from '../common/Navigation.vue';
+import Navigation from '../Common/Navigation';
 export default {
   name: "HomePage",
   components: {
