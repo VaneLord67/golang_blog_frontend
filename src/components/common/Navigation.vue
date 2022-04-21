@@ -12,7 +12,7 @@
       <router-link to="/article/home">博客页</router-link>
     </el-menu-item>
     <el-menu-item index="3" class="menuRight">
-      <i class="el-icon-user-solid"></i>
+      <router-link to="/user/home" class="el-icon-user-solid"></router-link>
     </el-menu-item>
     <el-menu-item index="4" class="menuRight">
       <router-link to="/register">注册</router-link>

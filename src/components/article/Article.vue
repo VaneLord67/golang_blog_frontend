@@ -68,7 +68,7 @@ export default {
     },
   },
   mounted() {
-    this.getArticle(17);
+    this.getArticle(this.$route.query.id);
   },
 };
 </script>

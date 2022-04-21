@@ -113,8 +113,8 @@ export default {
             return;
           }
           setToken(res.Data.Jwt);
-
           alert("登录成功！");
+          this.$router.push({path: "/user/home"})
         });
       });
     },
