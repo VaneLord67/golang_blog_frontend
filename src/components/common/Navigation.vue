@@ -4,21 +4,22 @@
     mode="horizontal"
     background-color="#000000"
     text-color="#ffffff"
+    :router=true
   >
-    <el-menu-item index="1">
-      <router-link to="/">首页</router-link>
+    <el-menu-item index="/" >
+      <div>首页</div>
     </el-menu-item>
-    <el-menu-item index="2">
-      <router-link to="/article/home">博客页</router-link>
+    <el-menu-item index="/article/home">
+      <div>博客页</div>
     </el-menu-item>
-    <el-menu-item index="3" class="menuRight">
-      <router-link to="/user/home" class="el-icon-user-solid"></router-link>
+    <el-menu-item index="/user/home" class="menuRight">
+      <div class="el-icon-user-solid"></div>
     </el-menu-item>
-    <el-menu-item index="4" class="menuRight">
-      <router-link to="/register">注册</router-link>
+    <el-menu-item index="/register" class="menuRight">
+      <div>注册</div>
     </el-menu-item>
-    <el-menu-item index="5" class="menuRight">
-      <router-link to="/login">登录</router-link>
+    <el-menu-item index="/login" class="menuRight">
+      <div>登录</div>
     </el-menu-item>
   </el-menu>
 </template>
@@ -26,6 +27,11 @@
 <script>
 export default {
   name: "Navigation",
+  methods: {
+    tunrToHome() {
+      this.$router.push({name: 'homePage'})
+    }
+  },
 };
 </script>
 
