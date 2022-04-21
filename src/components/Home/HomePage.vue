@@ -1,6 +1,6 @@
 <template>
   <div class="outer">
-    <Navigation/>
+    <Navigation :valid=false />
     <div class="background" @keyup.enter="enterSearch()">
         <div class="input">
         <div class="search">Search</div>
@@ -60,7 +60,4 @@ export default {
   padding-right : 48vw;
 }
 
-::v-deep .el-input__inner{
-          height: 55px;
-        }
 </style>

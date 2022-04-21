@@ -22,6 +22,7 @@
             <el-input
               size="large"
               v-model="formLabelAlign.password"
+              show-password
               placeholder="请输入密码"
             ></el-input>
           </el-form-item>
@@ -94,7 +95,10 @@ export default {
       this.$axios.post("/user/login", loginDto).then((res) => {
         let jwt = res.Data;
         if (jwt == null) {
-          alert("账号或密码错误");
+          this.$message({
+            type: "error",
+            message: "账号或密码错误!",
+          });
           this.formLabelAlign.username = "";
           this.formLabelAlign.password = "";
           this.formLabelAlign.captcha = "";
@@ -102,7 +106,7 @@ export default {
           return;
         }
         setToken(res.Data.Jwt);
-        this.$router.push({path: '/user/home'})
+        this.$router.push({ path: "/user/home" });
       });
     },
     Register() {
@@ -111,7 +115,11 @@ export default {
         this.formLabelAlign.password == "" ||
         this.formLabelAlign.captcha == ""
       ) {
-        return alert("输入为空!");
+        this.$message({
+          type: "warning",
+          message: "输入为空!",
+        });
+        return;
       }
       let registerDto = {
         username: this.formLabelAlign.username,
@@ -119,7 +127,10 @@ export default {
       };
       this.VerifyCaptcha().then((ok) => {
         if (!ok) {
-          alert("验证码错误!");
+          this.$message({
+            type: "error",
+            message: "验证码错误!",
+          });
           this.formLabelAlign.captcha = "";
           this.GetCaptchaPicture();
           return;
@@ -128,9 +139,15 @@ export default {
           let r = res.Code;
           if (r != 1) {
             if (r == 103) {
-              alert("该用户已被注册!");
+              this.$message({
+                type: "warning",
+                message: "该用户已被注册!",
+              });
             } else {
-              alert("注册失败!");
+              this.$message({
+                type: "error",
+                message: "注册失败!",
+              });
             }
             this.formLabelAlign.username = "";
             this.formLabelAlign.password = "";
@@ -139,7 +156,7 @@ export default {
             return;
           }
           alert("注册成功!");
-          this.LoginAfterRegister()
+          this.LoginAfterRegister();
         });
       });
     },

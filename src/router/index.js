@@ -6,6 +6,7 @@ import Register from '../components/User/Register'
 import Article from '../components/article/Article'
 import UserHome from '../components/User/UserHome'
 import ArticleHome from '../components/article/ArticleHome'
+import Create from '../components/article/Create'
 
 //创建并暴露一个路由器
 const router = new VueRouter({
@@ -40,6 +41,11 @@ const router = new VueRouter({
 			path:'/article/home',
 			component: ArticleHome,	
 		},
+		{
+			name:'CreateArticle',
+			path:'/article/create',
+			component: Create,
+		}
 	]
 })
 

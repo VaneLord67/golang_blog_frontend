@@ -22,6 +22,7 @@
             <el-input
               size="large"
               v-model="formLabelAlign.password"
+              show-password
               placeholder="请输入密码"
             ></el-input>
           </el-form-item>
@@ -105,7 +106,10 @@ export default {
         this.$axios.post("/user/login", loginDto).then((res) => {
           let jwt = res.Data;
           if (jwt == null) {
-            alert("账号或密码错误");
+            this.$message({
+            type: "error",
+            message: "账号或密码错误!",
+            });
             this.formLabelAlign.username = "";
             this.formLabelAlign.password = "";
             this.formLabelAlign.captcha = "";
@@ -113,7 +117,11 @@ export default {
             return;
           }
           setToken(res.Data.Jwt);
-          alert("登录成功！");
+          this.$message({
+            type: "success",
+            message: "登录成功!",
+          });
+          // alert("登录成功！");
           this.$router.push({path: "/user/home"})
         });
       });
