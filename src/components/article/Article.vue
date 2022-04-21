@@ -6,9 +6,9 @@
     <div class="main">
       <div class="editor">
         <v-md-editor
-          mode="preview"
+          mode=""
           left-toolbar=""
-          right-toolbar="preview toc sync-scroll fullscreen"
+          right-toolbar="toc"
           v-model="text"
           :include-level="[1, 3]"
           :default-show-toc="showToc"
@@ -35,9 +35,10 @@ export default {
       backRight: 225,
       articleId: -1,
       authorId: -1,
-      title: "题目",
-      text: '# Hello!',
-      authorName: "作者用户名",
+      title: "",
+      // text: '# Hello!\n# Hello!\n ',
+      text: '',
+      authorName: "",
       titles: [],
     };
   },
@@ -62,18 +63,20 @@ export default {
           this.text = res.Data.Article.Content;
           this.authorId = res.Data.Article.AuthorId;
           this.authorName = res.Data.AuthorName;
-
-          this.text = "[[toc]] \n" + this.text
         });
     },
   },
   mounted() {
     this.getArticle(this.$route.query.id);
+    // this.getArticle(17);
   },
 };
 </script>
 
-<style scoped>
+<style>
+.v-md-editor__editor-wrapper {
+  display: none;
+}
 
 .editor {
   float: left;

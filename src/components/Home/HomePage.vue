@@ -1,11 +1,11 @@
 <template>
   <div class="outer">
     <Navigation/>
-    <div class="background">
+    <div class="background" @keyup.enter="enterSearch()">
         <div class="input">
         <div class="search">Search</div>
         <el-input
-            placeholder="请输入内容"
+            placeholder="请输入内容 键下回车搜索"
             prefix-icon="el-icon-search"
             v-model="inputText"
         >
@@ -27,7 +27,13 @@ export default {
           inputText: "",
       }
   },
-  methods: {},
+  methods: {
+    enterSearch() {
+      // console.log("enter search")
+      // if (this.inputText == '') return
+      this.$router.push({name: 'ArticleHome', query: {query: this.inputText}})
+    }
+  },
 };
 </script>
 

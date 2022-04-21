@@ -1,6 +1,6 @@
 <template>
   <el-timeline-item placement="top" color="#0bbd87" size="large">
-    <el-card>
+    <el-card class="metaArticle">
       <div style="margin-left: 60px" @click="readArticle()">
         <h4>{{ title }}</h4>
         <p>作者：{{ authorName }}</p>
@@ -25,4 +25,7 @@ export default {
 </script>
 
 <style scoped>
+.metaArticle {
+  cursor:pointer;
+}
 </style>
