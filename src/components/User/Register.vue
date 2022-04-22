@@ -92,7 +92,7 @@ export default {
         username: this.formLabelAlign.username,
         password: this.formLabelAlign.password,
       };
-      this.$axios.post("/user/login", loginDto).then((res) => {
+      return this.$axios.post("/user/login", loginDto).then((res) => {
         let jwt = res.Data;
         if (jwt == null) {
           this.$message({
@@ -155,8 +155,13 @@ export default {
             this.GetCaptchaPicture();
             return;
           }
-          alert("注册成功!");
-          this.LoginAfterRegister();
+          this.LoginAfterRegister().then((res) => {
+            this.$message({
+              type: "success",
+              message: "注册成功!",
+            });
+            this.$router.push({path: "/user/home"})
+          })
         });
       });
     },

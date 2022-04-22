@@ -7,8 +7,8 @@ import { getToken } from "@/utils/storage";
 import router from '@/router/index.js';
 
 
-//  export const baseURL = "http://175.27.244.157:8085";
-export const baseURL = "http://localhost:8085";
+export const baseURL = "https://vanelord.xyz/api";
+// export const baseURL = "http://localhost:8085";
 
 export const Axios = axios.create({
   baseURL: baseURL,

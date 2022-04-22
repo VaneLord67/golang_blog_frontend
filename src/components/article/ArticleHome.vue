@@ -1,6 +1,6 @@
 <template>
   <div class="outer">
-    <Navigation />
+    <Navigation :getQuery="getQuery" />
     <el-timeline class="main">
       <h2>Markdown文档</h2>
       <MetaArticle
@@ -11,17 +11,24 @@
         :authorName="article.AuthorName"
       />
     </el-timeline>
-    <el-pagination class="page" background layout="prev, pager, next" :page-count="totalPage" :current-page="pageNum" @current-change="changePage">
+    <el-pagination
+      class="page"
+      background
+      layout="prev, pager, next"
+      :page-count="totalPage"
+      :current-page="pageNum"
+      @current-change="changePage"
+    >
     </el-pagination>
   </div>
 </template>
 
 <script>
 import Navigation from "../Common/Navigation";
-import MetaArticle from '../article/MetaArticle'
+import MetaArticle from "../article/MetaArticle";
 export default {
   name: "ArticleHome",
-  components: { Navigation, MetaArticle},
+  components: { Navigation, MetaArticle },
   data() {
     return {
       pageSize: 5,
@@ -41,19 +48,34 @@ export default {
           },
         })
         .then((res) => {
-          // console.log(res)
-          this.articles = res.Data.VoList
-          this.totalPage = res.Data.TotalPage
+          // console.log(res.Data.VoList)
+          if (!res.Data.VoList) {
+            this.articles = []
+            this.totalPage = 1
+            this.$message({
+              type: "warning",
+              message: "没有搜到结果~",
+            });
+            return
+          } else {
+            this.articles = res.Data.VoList;
+            this.totalPage = res.Data.TotalPage;
+          }
         });
     },
     changePage(currentNum) {
-      this.pageNum = currentNum
-      this.search(this.$route.query.query)
-    }
+      this.pageNum = currentNum;
+      this.search(this.$route.query.query);
+    },
+    getQuery(query) {
+      // let targetURL = `/article/home?query=${query}`
+      // window.history.pushState('', '', targetURL);
+      this.search(query);
+    },
   },
   mounted() {
     // console.log(this.$route.query.query)
-    this.search(this.$route.query.query)
+    this.search(this.$route.query.query);
   },
 };
 </script>

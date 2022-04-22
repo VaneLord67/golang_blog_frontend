@@ -9,8 +9,8 @@
     <el-menu-item index="/">
       <div>首页</div>
     </el-menu-item>
-    <el-menu-item index="/article/home">
-      <div>博客页</div>
+    <el-menu-item @click="turnToArticleHome()">
+      <div>Markdown文档</div>
     </el-menu-item>
     <el-menu-item index="/user/home" class="menuRightEnd">
       <el-tooltip
@@ -49,6 +49,7 @@
         prefix-icon="el-icon-search"
         v-model="navigationInput"
         size="medium"
+        @keyup.enter.native="enterSearch()"
       >
       </el-input>
     </el-menu-item>
@@ -64,7 +65,15 @@ export default {
       showInput: true,
     };
   },
-  props: ["valid"],
+  watch: {
+    $route(n,o){
+        if(n.fullPath !== o.fullPath){ //监听路由参数是否变化
+          // console.log("change")
+          this.getQuery(this.navigationInput)
+        } 
+    }
+  },
+  props: ["valid","getQuery"],
   methods: {
     tunrToHome() {
       this.$router.push({ name: "homePage" });
@@ -73,12 +82,34 @@ export default {
       // console.log("edit")
       this.$router.push({ name: "CreateArticle" });
     },
+    enterSearch() {
+      // if (this.$route.path === '/article/home') {
+      //   // this.getQuery(this.navigationInput)
+      //   this.$router.push({name: 'empty', params: {link: '/article/home'}, query: {query: this.navigationInput}})
+      // } else {
+      //   this.$router.push({name: 'ArticleHome', query: {query: this.navigationInput}})
+      // }
+      this.$router.push({name: 'ArticleHome', query: {query: this.navigationInput}})
+    },
+    turnToArticleHome() {
+      // console.log("test")
+      if (this.$route.path != '/article/home') {
+        this.$router.push({name: 'ArticleHome', query: {query: this.navigationInput}})
+      } else {
+        // this.getQuery('')
+        this.navigationInput = ''
+        this.$router.push({name: 'ArticleHome', query: {query: ''}})
+      }
+    }
   },
   mounted() {
     if (this.valid === false) {
       this.showInput = false;
     } else {
       this.showInput = true;
+    }
+    if (this.$route.query.query) {
+      this.navigationInput = this.$route.query.query
     }
   },
 };

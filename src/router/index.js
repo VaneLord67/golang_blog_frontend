@@ -10,43 +10,50 @@ import Create from '../components/article/Create'
 
 //创建并暴露一个路由器
 const router = new VueRouter({
-	routes:[
-        {
-			name:'homePage',
-			path:'/',
+	routes: [
+		{
+			name: 'homePage',
+			path: '/',
 			component: HomePage,
 		},
 		{
-			name:'login',
-			path:'/login',
+			name: 'login',
+			path: '/login',
 			component: Login,
 		},
-        {
-            name:'register',
-            path:'/register',
-            component: Register,
-        },
 		{
-			name:'article',
-			path:'/article',
-			component: Article,	
+			name: 'register',
+			path: '/register',
+			component: Register,
 		},
 		{
-			name:'userHomePage',
-			path:'/user/home',
-			component: UserHome,	
+			name: 'article',
+			path: '/article',
+			component: Article,
 		},
 		{
-			name:'ArticleHome',
-			path:'/article/home',
-			component: ArticleHome,	
+			name: 'userHomePage',
+			path: '/user/home',
+			component: UserHome,
 		},
 		{
-			name:'CreateArticle',
-			path:'/article/create',
+			name: 'ArticleHome',
+			path: '/article/home',
+			component: ArticleHome,
+		},
+		{
+			name: 'CreateArticle',
+			path: '/article/create',
 			component: Create,
-		}
+		},
 	]
 })
+
+
+// 下面这段防止跳转重复路由时报错
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+	return originalPush.call(this, location).catch(err => err)
+}
 
 export default router;
