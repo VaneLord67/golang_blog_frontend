@@ -3,8 +3,11 @@
     <Navigation />
     <div class="side">
     </div>
+    <div class="background"></div>
     <el-timeline class="main">
-      <h2>我的Markdown文档列表</h2>
+      <div style="font-weight: bold; font-size: 30px; padding-bottom: 10px">
+        我的Mardown文档列表
+      </div>
       <MetaArticle
         v-for="article in articles"
         :key="article.Id"
@@ -28,7 +31,7 @@ export default {
   data() {
     return {
       pageNum: 1,
-      pageSize: 5,
+      pageSize: 3,
       totalPage: 1,
       articles: [],
       token: getToken(),
@@ -67,10 +70,23 @@ export default {
 
 <style scoped>
 .main {
-  margin-top: 50px;
+  margin-top: 19px;
   width: 400px;
   margin-left: 30%;
   text-align: left;
+  position: absolute;
+  top: 60px;
+}
+
+.background {
+  background: url("../../assets/articleBg.jpg") no-repeat;
+  background-size: 100% 100%;
+  height: calc(100vh - 61px);
+  width: 100%;
+  filter: blur(2px);
+  position: absolute;
+  left: -1px;
+  top: 60px;
 }
 
 .side {

@@ -1,8 +1,11 @@
 <template>
   <div class="outer">
     <Navigation :getQuery="getQuery" />
+    <div class="background"></div>
     <el-timeline class="main">
-      <h2>Markdown文档</h2>
+      <div style="font-weight: bold; font-size: 33px; padding-bottom: 10px">
+        Markdown文档
+      </div>
       <MetaArticle
         v-for="article in articles"
         :key="article.Id"
@@ -31,7 +34,7 @@ export default {
   components: { Navigation, MetaArticle },
   data() {
     return {
-      pageSize: 5,
+      pageSize: 3,
       pageNum: 1,
       totalPage: 1,
       articles: [],
@@ -50,13 +53,13 @@ export default {
         .then((res) => {
           // console.log(res.Data.VoList)
           if (!res.Data.VoList) {
-            this.articles = []
-            this.totalPage = 1
+            this.articles = [];
+            this.totalPage = 1;
             this.$message({
               type: "warning",
               message: "没有搜到结果~",
             });
-            return
+            return;
           } else {
             this.articles = res.Data.VoList;
             this.totalPage = res.Data.TotalPage;
@@ -81,11 +84,21 @@ export default {
 </script>
 
 <style scoped>
+.background {
+  background: url("../../assets/articleBg.jpg") no-repeat;
+  background-size: 100% 100%;
+  height: calc(100vh - 61px);
+  width: 100%;
+  filter: blur(2px);
+}
+
 .main {
-  margin-top: 50px;
+  margin-top: 20px;
   width: 400px;
   margin-left: 30%;
   text-align: left;
+  position: absolute;
+  top: 60px;
 }
 
 .page {
