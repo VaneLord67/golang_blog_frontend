@@ -1,12 +1,12 @@
 import VueRouter from 'vue-router'
 
-import HomePage from '../components/Home/HomePage.vue'
-import Login from '../components/User/Login.vue'
-import Register from '../components/User/Register'
-import Article from '../components/article/Article'
-import UserHome from '../components/User/UserHome'
-import ArticleHome from '../components/article/ArticleHome'
-import Create from '../components/article/Create'
+const HomePage = () => import('../components/Home/HomePage.vue')
+const Login = () => import('../components/User/Login.vue')
+const Register = () => import('../components/User/Register')
+const Article = () => import('../components/article/Article')
+const UserHome = () => import('../components/User/UserHome')
+const ArticleHome = () => import('../components/article/ArticleHome')
+const Create = () => import('../components/article/Create')
 
 //创建并暴露一个路由器
 const router = new VueRouter({

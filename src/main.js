@@ -1,7 +1,8 @@
 import Vue from 'vue'
-import ElementUI from 'element-ui';
+// import ElementUI from 'element-ui';
+import { Button, Message, Pagination, Input, Tooltip, Icon, Card, Timeline, TimelineItem, Backtop, Menu, MenuItem, Form, FormItem, } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-import {Axios} from './service'
+import { Axios } from './service'
 import App from './App.vue'
 //引入VueRouter
 import VueRouter from 'vue-router'
@@ -45,9 +46,24 @@ VMdEditor.use(githubTheme, {
   },
 });
 
-Vue.use(VMdEditor);
-Vue.use(ElementUI);
+//
+Vue.prototype.$message = Message;
+Vue.use(Button)
+Vue.use(Pagination)
+Vue.use(Icon)
+Vue.use(Input)
+Vue.use(Tooltip)
+Vue.use(Card)
+Vue.use(Timeline)
+Vue.use(TimelineItem)
+Vue.use(Backtop)
+Vue.use(Menu)
+Vue.use(MenuItem)
+Vue.use(Form);
+Vue.use(FormItem);
+// Vue.use(ElementUI);
 Vue.use(VueRouter);
+Vue.use(VMdEditor);
 Vue.prototype.$axios = Axios
 Vue.config.productionTip = false
 
