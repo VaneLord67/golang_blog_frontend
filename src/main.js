@@ -1,6 +1,6 @@
 import Vue from 'vue'
 // import ElementUI from 'element-ui';
-import { Button, Message, Pagination, Input, Tooltip, Icon, Card, Timeline, TimelineItem, Backtop, Menu, MenuItem, Form, FormItem, } from 'element-ui';
+import { Button, Message, MessageBox, Pagination, Input, Tooltip, Icon, Card, Timeline, TimelineItem, Backtop, Menu, MenuItem, Form, FormItem, } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import { Axios } from './service'
 import App from './App.vue'
@@ -48,6 +48,9 @@ VMdEditor.use(githubTheme, {
 
 //
 Vue.prototype.$message = Message;
+Vue.prototype.$msgbox = MessageBox;
+Vue.prototype.$prompt = MessageBox.prompt;
+Vue.prototype.$confirm = MessageBox.confirm;
 Vue.use(Button)
 Vue.use(Pagination)
 Vue.use(Icon)
@@ -61,6 +64,7 @@ Vue.use(Menu)
 Vue.use(MenuItem)
 Vue.use(Form);
 Vue.use(FormItem);
+// Vue.use(MessageBox);
 // Vue.use(ElementUI);
 Vue.use(VueRouter);
 Vue.use(VMdEditor);

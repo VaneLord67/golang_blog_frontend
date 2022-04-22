@@ -91,7 +91,7 @@ export default {
     return {
       showToc: true,
       backBottom: 50,
-      backRight: 380,
+      backRight: 350,
       articleId: -1,
       authorId: -1,
       title: "",
@@ -238,7 +238,9 @@ export default {
   },
   mounted() {
     this.articleId = this.$route.query.id;
-    this.GetPermission();
+    if (this.$route.query.valid) {
+      this.GetPermission();
+    }
     this.getArticle(this.$route.query.id);
     // this.getArticle(17);
   },
@@ -259,7 +261,7 @@ export default {
   float: left;
   text-align: left;
   width: 70vw;
-  /* border-right: 1px solid black; */
+  margin-left: 38px;
 }
 
 .tools {

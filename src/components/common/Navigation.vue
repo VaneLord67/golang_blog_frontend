@@ -4,6 +4,7 @@
     mode="horizontal"
     background-color="#000000"
     text-color="#ffffff"
+    active-text-color="#ffffff"
     :router="true"
   >
     <el-menu-item index="/">

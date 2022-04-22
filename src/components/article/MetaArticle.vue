@@ -18,7 +18,7 @@ export default {
   props: ["title", "authorName", "id"],
   methods: {
     readArticle() {
-      this.$router.push({ name: "article", query: { id: this.id } });
+      this.$router.push({ name: "article", query: { id: this.id, valid: true } });
     },
   },
 };

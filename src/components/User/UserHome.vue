@@ -42,8 +42,10 @@ export default {
         })
         .then((res) => {
           // console.log(res)
-          this.articles = res.Data.List;
-          this.totalPage = res.Data.TotalPage;
+          if (res) {
+            this.articles = res.Data.List;
+            this.totalPage = res.Data.TotalPage;      
+          }
         });
     },
     Edit() {

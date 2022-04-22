@@ -5,7 +5,7 @@
 import axios from "axios";
 import { getToken } from "@/utils/storage";
 import router from '@/router/index.js';
-
+import Vue from 'vue';
 
 export const baseURL = "https://vanelord.xyz/api";
 // export const baseURL = "http://localhost:8085";
@@ -35,7 +35,11 @@ Axios.interceptors.response.use(
   (res) => {
     //  console.log(res.data.Code)
     if (res.data.Code == 105) {
-      alert("请重新登录")
+      // alert("请重新登录")
+      Vue.prototype.$message({
+        type: "warning",
+        message: "请登录",
+      });
       router.replace({
         path: '/login',
       })
