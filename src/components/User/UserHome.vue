@@ -44,7 +44,7 @@ export default {
           params: { pageNum: this.pageNum, pageSize: this.pageSize },
         })
         .then((res) => {
-          // console.log(res)
+          console.log(res)
           if (res) {
             this.articles = res.Data.List;
             this.totalPage = res.Data.TotalPage;      
