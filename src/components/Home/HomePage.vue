@@ -17,7 +17,7 @@
         content="友情链接~"
         placement="right-end"
       >
-        <a class="op" href="https://blog.tomsawyer2.xyz/index" target="_blank"> </a>
+        <a class="op" href="https://novel.tomsawyer2.xyz/" target="_blank"> </a>
       </el-tooltip>
     </div>
     <div class="footer">
