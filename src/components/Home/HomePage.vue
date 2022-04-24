@@ -98,4 +98,23 @@ a {
   padding-left: 15vw;
   padding-right: 48vw;
 }
+
+@media screen and (max-width: 400px) {
+  .background {
+    background: none;
+  }
+
+  .op {
+    display: none;
+  }
+
+  .input {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 31vh;
+    width: 80vw;
+    margin: auto;
+  }
+  
+}
 </style>

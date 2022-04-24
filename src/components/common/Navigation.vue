@@ -11,7 +11,7 @@
       <div>首页</div>
     </el-menu-item>
     <el-menu-item @click="turnToArticleHome()">
-      <div>Markdown文档</div>
+      <div>{{isPC ? "Markdown文档" : "文档"}}</div>
     </el-menu-item>
     <el-menu-item index="/user/home" class="menuRightEnd">
       <el-tooltip
@@ -64,6 +64,7 @@ export default {
     return {
       navigationInput: "",
       showInput: true,
+      isPC: true,
     };
   },
   watch: {
@@ -112,6 +113,9 @@ export default {
     if (this.$route.query.query) {
       this.navigationInput = this.$route.query.query
     }
+    if (document.documentElement.clientWidth <= 450) {
+      this.isPC = false
+    }
   },
 };
 </script>
@@ -121,11 +125,35 @@ export default {
   float: right;
   margin-right: 30px;
 }
+
 .menuRightInput {
   float: right;
 }
+
 .menuRight {
   float: right;
   /* padding-right: 2px; */
+}
+
+@media screen and (max-width: 450px) {
+  .menuRightEnd {
+    float: right;
+    margin: 0;
+    padding: 0;
+    margin-right: 15px;
+  }
+
+  .menuRight {
+    float: right;
+  }
+
+  .menuRightInput {
+    display: none;
+  }
+
+  div {
+    font-size: 1px;
+  }
+
 }
 </style>

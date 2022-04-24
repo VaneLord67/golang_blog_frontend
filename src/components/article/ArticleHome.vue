@@ -3,7 +3,7 @@
     <Navigation :getQuery="getQuery" />
     <div class="background"></div>
     <el-timeline class="main">
-      <div style="font-weight: bold; font-size: 33px; padding-bottom: 10px">
+      <div class="head">
         Markdown文档
       </div>
       <MetaArticle
@@ -109,5 +109,42 @@ export default {
   line-height: 50px;
   top: 80vh;
   width: 15vw;
+}
+
+.head {
+  font-weight: bold; 
+  font-size: 33px; 
+  padding-bottom: 10px
+}
+
+@media screen and (max-width: 450px) {
+  .background {
+    background: none;
+    background-size: auto;
+    height: 100vh;
+    width: 100vw;
+    filter: none;
+  }
+
+  .main {
+    position: absolute;
+    left: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-left: 0;
+    top: 61px;
+    width: 60vw;
+  }
+
+  .page {
+    position: fixed;
+    left: 29vw;
+    top: 85vh;
+  }
+
+  .head {
+    margin-top: 6vh;
+    font-size: 29px;
+  }
 }
 </style>

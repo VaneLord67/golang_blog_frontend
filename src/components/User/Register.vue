@@ -196,13 +196,16 @@ export default {
 }
 
 @media screen and (max-width: 980px) {
+  .back {
+    background: none;
+  }
+
   .login {
-    padding-top: 5%;
-    padding-bottom: 5%;
-    position: relative;
-    top: 25%;
-    /* left: 15%; */
-    width: 70%;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 31vh;
+    width: 80vw;
+    margin: auto;
   }
 }
 
@@ -214,7 +217,16 @@ export default {
 
 @media screen and (max-width: 400px) {
   .login {
-    width: 70%;
+    padding: 0;
+    margin: 0;
+    width: 90vw;
+    position: absolute;
+    top: 31vh;
+    left: 0;
+    right: 0;
+    margin: auto;
   }
+
+
 }
 </style>

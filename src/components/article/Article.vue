@@ -19,8 +19,8 @@
       <div class="meta">
         标题: {{ title }}<br /><br />
         作者: {{ authorName }}
-        <el-backtop :bottom="backBottom" :right="backRight">UP</el-backtop>
       </div>
+      <el-backtop :bottom="backBottom" :right="backRight" class="UP">UP</el-backtop>
       <div class="tools" v-if="permission">
         <el-tooltip
           class="item"
@@ -103,6 +103,7 @@ export default {
       leftToolbar: "",
       rightToolbar: "toc",
       permission: false,
+      isPC: true,
     };
   },
   methods: {
@@ -241,6 +242,11 @@ export default {
     }
     this.getArticle(this.$route.query.id);
     // this.getArticle(17);
+    if (document.documentElement.clientWidth <= 450) {
+      this.isPC = false
+      this.backBottom = 50
+      this.backRight = 50
+    }
   },
 };
 </script>
@@ -283,5 +289,36 @@ export default {
   width: 15vw;
   border-left: 1px solid black;
   font-size: 25px;
+}
+
+.UP {
+  position: fixed;
+  left: 75vw;
+  top: 85vh;
+}
+
+@media screen and (max-width: 450px) {
+  .meta {
+    display: none;
+  }
+
+  .tools {
+    float: none;
+    position: fixed;
+    right: 0;
+    padding: 0;
+    margin: 0;
+    left: unset;
+  }
+
+  .item {
+    padding: 10px;
+    margin: 10px;
+  }
+
+  .UP {
+    left: 87vw;
+    top: 90vh;
+  }
 }
 </style>

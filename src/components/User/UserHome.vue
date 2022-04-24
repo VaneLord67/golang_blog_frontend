@@ -1,14 +1,15 @@
 <template>
   <div class="outer">
     <Navigation />
-    <div class="side">
-    </div>
+    <div class="side"></div>
     <div class="background"></div>
     <el-timeline class="main">
-      <div style="font-weight: bold; font-size: 30px; padding-bottom: 10px">
-        我的Mardown文档列表
-      </div>
-      <el-empty v-if="!articles" class="empty" description="还没有写过文档哦~"></el-empty>
+      <div class="head">我的Mardown文档列表</div>
+      <el-empty
+        v-if="!articles"
+        class="empty"
+        description="还没有写过文档哦~"
+      ></el-empty>
       <MetaArticle
         v-for="article in articles"
         :key="article.Id"
@@ -17,7 +18,14 @@
         :authorName="article.AuthorName"
       />
     </el-timeline>
-    <el-pagination class="page" background layout="prev, pager, next" :page-count="totalPage" :current-page="pageNum" @current-change="changePage">
+    <el-pagination
+      class="page"
+      background
+      layout="prev, pager, next"
+      :page-count="totalPage"
+      :current-page="pageNum"
+      @current-change="changePage"
+    >
     </el-pagination>
   </div>
 </template>
@@ -48,7 +56,7 @@ export default {
           // console.log(res)
           if (res) {
             this.articles = res.Data.List;
-            this.totalPage = res.Data.TotalPage;      
+            this.totalPage = res.Data.TotalPage;
           }
         });
     },
@@ -59,8 +67,8 @@ export default {
     changePage(currentNum) {
       // console.log("changePage")
       // console.log(this.pageNum)
-      this.pageNum = currentNum
-      this.getMetaArticles()
+      this.pageNum = currentNum;
+      this.getMetaArticles();
     },
   },
   mounted() {
@@ -111,11 +119,34 @@ export default {
   width: 15vw;
 }
 
-@media screen and (max-width: 400px) {
+.head {
+  font-weight: bold;
+  font-size: 30px;
+  padding-bottom: 10px;
+}
+
+@media screen and (max-width: 450px) {
   .main {
     margin-top: 50px;
     margin-left: 0px;
     width: 70vw;
+  }
+
+  .background {
+    background: none;
+    background-size: auto;
+    height: auto;
+    filter: none;
+  }
+
+  .head {
+    font-size: 6vw;
+  }
+
+  .page {
+    position: fixed;
+    left: 29vw;
+    top: 80vh;
   }
 }
 </style>
