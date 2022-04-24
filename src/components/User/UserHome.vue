@@ -8,6 +8,7 @@
       <div style="font-weight: bold; font-size: 30px; padding-bottom: 10px">
         我的Mardown文档列表
       </div>
+      <el-empty v-if="!articles" class="empty" description="还没有写过文档哦~"></el-empty>
       <MetaArticle
         v-for="article in articles"
         :key="article.Id"
@@ -69,6 +70,10 @@ export default {
 </script>
 
 <style scoped>
+.empty {
+  height: 60vh;
+}
+
 .main {
   margin-top: 19px;
   width: 400px;

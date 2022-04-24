@@ -87,28 +87,6 @@ export default {
           }
         });
     },
-    LoginAfterRegister() {
-      let loginDto = {
-        username: this.formLabelAlign.username,
-        password: this.formLabelAlign.password,
-      };
-      return this.$axios.post("/user/login", loginDto).then((res) => {
-        let jwt = res.Data;
-        if (jwt == null) {
-          this.$message({
-            type: "error",
-            message: "账号或密码错误!",
-          });
-          this.formLabelAlign.username = "";
-          this.formLabelAlign.password = "";
-          this.formLabelAlign.captcha = "";
-          this.GetCaptchaPicture();
-          return;
-        }
-        setToken(res.Data.Jwt);
-        this.$router.push({ path: "/user/home" });
-      });
-    },
     Register() {
       if (
         this.formLabelAlign.username == "" ||
@@ -124,45 +102,42 @@ export default {
       let registerDto = {
         username: this.formLabelAlign.username,
         password: this.formLabelAlign.password,
+        captchaId: this.captchaId,
+        value: this.formLabelAlign.captcha,
+        nanoId: this.nanoid,
       };
-      this.VerifyCaptcha().then((ok) => {
-        if (!ok) {
-          this.$message({
-            type: "error",
-            message: "验证码错误!",
-          });
+      this.$axios.post("/user/register", registerDto).then((res) => {
+        console.log(res);
+        let r = res.Code;
+        if (r != 1) {
+          if (r == 103) {
+            this.$message({
+              type: "warning",
+              message: "该用户已被注册!",
+            });
+          } else if (r == 108) {
+            this.$message({
+              type: "warning",
+              message: "验证码错误!",
+            });
+          } else {
+            this.$message({
+              type: "error",
+              message: "注册失败!",
+            });
+          }
+          this.formLabelAlign.username = "";
+          this.formLabelAlign.password = "";
           this.formLabelAlign.captcha = "";
           this.GetCaptchaPicture();
           return;
         }
-        this.$axios.post("/user/register", registerDto).then((res) => {
-          let r = res.Code;
-          if (r != 1) {
-            if (r == 103) {
-              this.$message({
-                type: "warning",
-                message: "该用户已被注册!",
-              });
-            } else {
-              this.$message({
-                type: "error",
-                message: "注册失败!",
-              });
-            }
-            this.formLabelAlign.username = "";
-            this.formLabelAlign.password = "";
-            this.formLabelAlign.captcha = "";
-            this.GetCaptchaPicture();
-            return;
-          }
-          this.LoginAfterRegister().then((res) => {
-            this.$message({
-              type: "success",
-              message: "注册成功!",
-            });
-            this.$router.push({path: "/user/home"})
-          })
+        this.$message({
+          type: "success",
+          message: "注册成功!",
         });
+        setToken(res.Data.Jwt);
+        this.$router.push({ path: "/user/home" });
       });
     },
     GetCaptcha() {

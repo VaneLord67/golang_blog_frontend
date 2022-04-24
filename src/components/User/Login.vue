@@ -1,7 +1,7 @@
 <template>
   <div class="outer">
     <div class="top">
-      <Navigation/>
+      <Navigation />
     </div>
     <div class="back">
       <div class="login">
@@ -33,7 +33,9 @@
               placeholder="请输入验证码"
             ></el-input>
           </el-form-item>
-          <el-button type="success" @click="Login()" class="loginBtn">登录</el-button>
+          <el-button type="success" @click="Login()" class="loginBtn"
+            >登录</el-button
+          >
           <el-button type="primary" @click="GetCaptchaPicture()"
             >刷新验证码</el-button
           >
@@ -52,7 +54,7 @@
 import { setToken } from "@/utils/storage.js";
 import { baseURL } from "@/service.js";
 import { nanoid } from "nanoid";
-import Navigation from '../Common/Navigation'
+import Navigation from "../Common/Navigation";
 export default {
   name: "Login",
   components: {
@@ -98,32 +100,38 @@ export default {
       let loginDto = {
         username: this.formLabelAlign.username,
         password: this.formLabelAlign.password,
+        captchaId: this.captchaId,
+        value: this.formLabelAlign.captcha,
+        nanoId: this.nanoid,
       };
-      this.VerifyCaptcha().then((ok) => {
-        if (!ok) {
-          return alert("验证码错误！");
+      this.$axios.post("/user/login", loginDto).then((res) => {
+        if (res && res.Code == 108) {
+          this.$message({
+            type: "warning",
+            message: "验证码错误!",
+          });
+          this.formLabelAlign.captcha = "";
+          this.GetCaptchaPicture();
+          return;
         }
-        this.$axios.post("/user/login", loginDto).then((res) => {
-          let jwt = res.Data;
-          if (jwt == null) {
-            this.$message({
+        let jwt = res.Data;
+        if (!jwt) {
+          this.$message({
             type: "error",
             message: "账号或密码错误!",
-            });
-            this.formLabelAlign.username = "";
-            this.formLabelAlign.password = "";
-            this.formLabelAlign.captcha = "";
-            this.GetCaptchaPicture();
-            return;
-          }
-          setToken(res.Data.Jwt);
-          this.$message({
-            type: "success",
-            message: "登录成功!",
           });
-          // alert("登录成功！");
-          this.$router.push({path: "/user/home"})
+          this.formLabelAlign.username = "";
+          this.formLabelAlign.password = "";
+          this.formLabelAlign.captcha = "";
+          this.GetCaptchaPicture();
+          return;
+        }
+        setToken(res.Data.Jwt);
+        this.$message({
+          type: "success",
+          message: "登录成功!",
         });
+        this.$router.push({ path: "/user/home" });
       });
     },
     GetCaptcha() {
@@ -178,11 +186,10 @@ export default {
 }
 
 .loginBtn {
-  margin-left: 10px; 
+  margin-left: 10px;
 }
 
 @media screen and (max-width: 980px) {
-
   .login {
     padding-top: 5%;
     padding-bottom: 5%;
@@ -191,7 +198,6 @@ export default {
     /* left: 15%; */
     width: 70%;
   }
-
 }
 
 @media screen and (max-width: 500px) {
@@ -205,6 +211,4 @@ export default {
     width: 70%;
   }
 }
-
-
 </style>
