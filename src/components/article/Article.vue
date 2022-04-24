@@ -112,13 +112,12 @@ export default {
         .get("/article/", { params: { id: articleId } })
         .then((res) => {
           // console.log(res)
-          if (res.Code != 1) {
-            if (res.Code == 105) {
-              alert("请重新登录");
-              this.$router.push({ path: "/login" });
-              return;
-            }
-            alert("加载文章出错");
+          // console.log(res.Code)
+          if (res && res.Code != 1) {
+            this.$message({
+              type: "error",
+              message: res.Message,
+            });
             return;
           }
           this.articleId = res.Data.Article.Id;
@@ -184,7 +183,6 @@ export default {
             if (res.Code != 1) {
               this.$message({
                 type: "error",
-                // message: "更新标题异常",
                 message: res.Message,
               });
               return;
@@ -199,7 +197,7 @@ export default {
         .catch(() => {
           this.$message({
             type: "info",
-            message: "取消创建",
+            message: "取消更新标题",
           });
         });
     },
@@ -207,7 +205,7 @@ export default {
       this.$axios
         .get("/article/permission", { params: { articleId: this.articleId } })
         .then((res) => {
-          // console.log(res)
+          // console.log(res);
           // console.log("articleId = " + this.articleId)
           if (res.Code != 1) {
             this.$message({

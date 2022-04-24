@@ -34,7 +34,7 @@ Axios.interceptors.request.use(
 Axios.interceptors.response.use(
   (res) => {
     //  console.log(res.data.Code)
-    if (res.data.Code == 105) {
+    if (res.data.Code == 105 || res.data.Code == 104) {
       // alert("请重新登录")
       Vue.prototype.$message({
         type: "warning",
