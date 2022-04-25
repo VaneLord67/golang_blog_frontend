@@ -152,7 +152,7 @@ export default {
   }
 
   div {
-    font-size: 1px;
+    font-size: 12px;
   }
 
 }

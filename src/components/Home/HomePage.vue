@@ -99,7 +99,7 @@ a {
   padding-right: 48vw;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 450px) {
   .background {
     background: none;
   }

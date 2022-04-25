@@ -4,29 +4,13 @@
       <Navigation />
     </div>
     <div class="main">
-      <div class="editor">
-        <v-md-editor
-          :class="editorClass"
-          mode=""
-          :left-toolbar="leftToolbar"
-          :right-toolbar="rightToolbar"
-          v-model="text"
-          :include-level="[1, 3]"
-          :default-show-toc="showToc"
-          @save="UpdateContent()"
-        />
-      </div>
-      <div class="meta">
-        标题: {{ title }}<br /><br />
-        作者: {{ authorName }}
-      </div>
-      <el-backtop :bottom="backBottom" :right="backRight" class="UP">UP</el-backtop>
-      <div class="tools" v-if="permission">
+            <div :class="toolsClass" v-if="permission">
         <el-tooltip
           class="item"
           effect="dark"
           content="编辑该Markdown文档"
           placement="left-start"
+          v-show="isPC || editorClass"
         >
           <el-button
             @click="Update()"
@@ -40,6 +24,7 @@
           effect="dark"
           content="删除该Markdown文档"
           placement="right-start"
+          v-show="isPC || editorClass"
         >
           <el-button
             @click="Delete()"
@@ -56,6 +41,7 @@
           content="更新标题"
           placement="left-end"
           style="margin-top: 10px"
+          v-show="isPC || editorClass"
         >
           <el-button
             @click="UpdateTitle()"
@@ -78,6 +64,23 @@
           ></el-button>
         </el-tooltip>
       </div>
+      <div class="editor">
+        <v-md-editor
+          :class="editorClass"
+          mode=""
+          :left-toolbar="leftToolbar"
+          :right-toolbar="rightToolbar"
+          v-model="text"
+          :include-level="[1, 3]"
+          :default-show-toc="showToc"
+          @save="UpdateContent()"
+        />
+      </div>
+      <div class="meta">
+        标题: {{ title }}<br /><br />
+        作者: {{ authorName }}
+      </div>
+      <el-backtop :bottom="backBottom" :right="backRight" class="UP">UP</el-backtop>
     </div>
   </div>
 </template>
@@ -104,6 +107,7 @@ export default {
       rightToolbar: "toc",
       permission: false,
       isPC: true,
+      toolsClass: "tools",
     };
   },
   methods: {
@@ -162,12 +166,14 @@ export default {
     },
     Update() {
       this.editorClass = "";
+      this.toolsClass = "toolsInPhone";
       this.leftToolbar =
         "undo redo clear | h bold italic strikethrough quote | ul ol table hr | link image code | save";
       this.rightToolbar = "preview toc sync-scroll fullscreen";
     },
     Preview() {
       this.editorClass = "magicHidden";
+      this.toolsClass = "tools";
       this.leftToolbar = "";
       this.rightToolbar = "toc";
     },
@@ -303,12 +309,30 @@ export default {
   }
 
   .tools {
-    float: none;
-    position: fixed;
-    right: 0;
+    position: absolute;
     padding: 0;
     margin: 0;
-    left: unset;
+    top: 7.5vh;
+    display: flex;
+    font-size: unset;
+    flex-direction: row;
+    left: 21vw;
+  }
+
+  .toolsInPhone {
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    top: 7.5vh;
+    display: flex;
+    font-size: unset;
+    flex-direction: row;
+    left: 65vw;
+  }
+
+  .editor {
+    margin-left: 0;
+    width: 100vw;
   }
 
   .item {
