@@ -42,6 +42,7 @@ export default {
       this.$prompt("请输入标题", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
+        center: true,
       })
         .then(({ value }) => {
           this.title = value;
@@ -82,5 +83,14 @@ export default {
   width: 95%;
   left: 2.5%; */
   text-align: left;
+}
+
+</style>
+
+<style>
+@media screen and (max-width: 750px) {
+  .el-message-box {
+    width: 60% !important;
+  }
 }
 </style>
