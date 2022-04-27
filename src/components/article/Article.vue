@@ -4,7 +4,7 @@
       <Navigation />
     </div>
     <div class="main">
-            <div :class="toolsClass" v-if="permission">
+      <div :class="toolsClass" v-if="permission">
         <el-tooltip
           class="item"
           effect="dark"
@@ -80,7 +80,9 @@
         标题: {{ title }}<br /><br />
         作者: {{ authorName }}
       </div>
-      <el-backtop :bottom="backBottom" :right="backRight" class="UP">UP</el-backtop>
+      <el-backtop :bottom="backBottom" :right="backRight" class="UP"
+        >UP</el-backtop
+      >
     </div>
   </div>
 </template>
@@ -166,14 +168,19 @@ export default {
     },
     Update() {
       this.editorClass = "";
-      this.toolsClass = "toolsInPhone";
+      console.log(this.isPC)
+      if (!this.isPC) {
+        this.toolsClass = "toolsInPhone";
+      }
       this.leftToolbar =
         "undo redo clear | h bold italic strikethrough quote | ul ol table hr | link image code | save";
       this.rightToolbar = "preview toc sync-scroll fullscreen";
     },
     Preview() {
       this.editorClass = "magicHidden";
-      this.toolsClass = "tools";
+      if (!this.isPC) {
+        this.toolsClass = "tools";
+      }
       this.leftToolbar = "";
       this.rightToolbar = "toc";
     },
@@ -219,6 +226,8 @@ export default {
               type: "warning",
               message: "获取权限异常",
             });
+            this.permission = false;
+            return;
           }
           this.permission = res.Data;
         });
@@ -249,9 +258,9 @@ export default {
     this.getArticle(this.$route.query.id);
     // this.getArticle(17);
     if (document.documentElement.clientWidth <= 450) {
-      this.isPC = false
-      this.backBottom = 50
-      this.backRight = 50
+      this.isPC = false;
+      this.backBottom = 50;
+      this.backRight = 50;
     }
   },
 };

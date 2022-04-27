@@ -7,8 +7,8 @@ import { getToken } from "@/utils/storage";
 import router from '@/router/index.js';
 import Vue from 'vue';
 
-// export const baseURL = "https://vanelord.xyz/api";
-export const baseURL = "http://175.27.244.157/api";
+export const baseURL = "https://vanelord.xyz/api";
+// export const baseURL = "http://175.27.244.157/api";
 // export const baseURL = "http://localhost:8085";
 
 export const Axios = axios.create({
@@ -34,22 +34,33 @@ Axios.interceptors.request.use(
  */
 Axios.interceptors.response.use(
   (res) => {
+    // console.log(res)
     //  console.log(res.data.Code)
-    if (res.data.Code == 105 || res.data.Code == 104) {
-      // alert("请重新登录")
-      Vue.prototype.$message({
-        type: "warning",
-        message: "请登录",
-      });
-      router.replace({
-        path: '/login',
-      })
-    } else {
-      return res.data;
+    switch (res.data.Code) {
+      case 104:
+      case 105:
+        Vue.prototype.$message({
+          type: "warning",
+          message: "请登录",
+        });
+        router.replace({
+          path: '/login',
+        })
+        break
+      case 429:
+        Vue.prototype.$message({
+          type: "error",
+          message: "服务器正忙,请稍后再次访问",
+        });
+        break
+      default:
+        break
     }
+    return res.data
   },
   (err) => {
-    Promise.reject(err);
+    // console.log(err.response)
+    return Promise.reject(err);
   }
 );
 
