@@ -102,6 +102,7 @@ export default {
       title: "",
       // text: '# Hello!\n# Hello!\n ',
       text: "",
+      tempText: "",
       authorName: "",
       titles: [],
       editorClass: "magicHidden",
@@ -111,6 +112,31 @@ export default {
       isPC: true,
       toolsClass: "tools",
     };
+  },
+  watch: {
+    text: {
+      handler(newValue, oldValue) {
+        console.log("watch text");
+        console.log(newValue);
+        console.log(this.tempText);
+        let _this = this;
+        if (this.tempText != newValue) {
+          window.onbeforeunload = function (e) {
+            if (_this.$route.name == "article") {
+              e = e || window.event;
+              // 兼容IE8和Firefox 4之前的版本
+              if (e) {
+                e.returnValue = "";
+              }
+              // Chrome, Safari, Firefox 4+, Opera 12+ , IE 9+
+              return "";
+            } else {
+              window.onbeforeunload = null;
+            }
+          };
+        }
+      },
+    },
   },
   methods: {
     turnToAuthor() {},
@@ -132,6 +158,8 @@ export default {
           this.text = res.Data.Article.Content;
           this.authorId = res.Data.Article.AuthorId;
           this.authorName = res.Data.AuthorName;
+
+          this.tempText = this.text;
         });
     },
     Delete() {
@@ -168,7 +196,7 @@ export default {
     },
     Update() {
       this.editorClass = "";
-      console.log(this.isPC)
+      // console.log(this.isPC)
       if (!this.isPC) {
         this.toolsClass = "toolsInPhone";
       }
@@ -247,6 +275,10 @@ export default {
           type: "success",
           message: "更新文档内容成功",
         });
+        this.tempText = this.text;
+        window.onbeforeunload = function (e) {
+          window.onbeforeunload = null;
+        };
       });
     },
   },

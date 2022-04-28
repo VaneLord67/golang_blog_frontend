@@ -73,6 +73,20 @@ export default {
   },
   mounted() {
     this.GetPermission();
+    let _this = this;
+    window.onbeforeunload = function (e) {
+      if (_this.$route.name == "CreateArticle") {
+        e = e || window.event;
+        // 兼容IE8和Firefox 4之前的版本
+        if (e) {
+          e.returnValue = "";
+        }
+        // Chrome, Safari, Firefox 4+, Opera 12+ , IE 9+
+        return "";
+      } else {
+        window.onbeforeunload = null;
+      }
+    };
   },
 };
 </script>
@@ -84,7 +98,6 @@ export default {
   left: 2.5%; */
   text-align: left;
 }
-
 </style>
 
 <style>
