@@ -39,6 +39,23 @@
           <el-button type="primary" @click="GetCaptchaPicture()"
             >刷新验证码</el-button
           >
+
+          <a
+            href="https://github.com/login/oauth/authorize?client_id=cb6be1dcec6958e30b1d"
+          >
+            <el-tooltip
+              class="item"
+              effect="dark"
+              content="使用Github账号登录"
+              placement="right"
+            >
+              <img
+                src="../../assets/github.png"
+                style="height: 50px; width: 50px; float: right"
+              />
+            </el-tooltip>
+          </a>
+
           <img
             :src="imgUrl"
             alt=""
@@ -151,6 +168,9 @@ export default {
       this.GetCaptcha().then(() => {
         this.imgUrl = `${baseURL}/captcha/${this.captchaId}.png?nanoid=${this.nanoid}`;
       });
+    },
+    github() {
+      alert("hello");
     },
   },
   mounted() {

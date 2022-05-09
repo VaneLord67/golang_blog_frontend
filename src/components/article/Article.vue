@@ -116,9 +116,9 @@ export default {
   watch: {
     text: {
       handler(newValue, oldValue) {
-        console.log("watch text");
-        console.log(newValue);
-        console.log(this.tempText);
+        // console.log("watch text");
+        // console.log(newValue);
+        // console.log(this.tempText);
         let _this = this;
         if (this.tempText != newValue) {
           window.onbeforeunload = function (e) {

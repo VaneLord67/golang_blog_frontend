@@ -10,6 +10,7 @@ const Create = () => import('../components/article/Create')
 
 //创建并暴露一个路由器
 const router = new VueRouter({
+	mode: "history",
 	routes: [
 		{
 			name: 'homePage',

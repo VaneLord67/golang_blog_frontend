@@ -33,7 +33,7 @@
 <script>
 import MetaArticle from "../article/MetaArticle";
 import Navigation from "../Common/Navigation";
-import { getToken } from "@/utils/storage.js";
+import { getToken, setToken } from "@/utils/storage.js";
 export default {
   name: "UserHome",
   components: { Navigation, MetaArticle },
@@ -72,7 +72,57 @@ export default {
     },
   },
   mounted() {
-    this.getMetaArticles();
+    if (this.$route.query.code) {
+      const loading = this.$loading({
+        lock: true,
+        text: "正在读取Github用户信息",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
+      let dto = {
+        code: this.$route.query.code,
+      };
+      this.$axios
+        .post("/user/github", dto, { timeout: 10000 })
+        .then((res) => {
+          console.log(res);
+          if (res && res.Code != 1 && !res.Data.Jwt) {
+            if (res.Code === 110) {
+              this.$message({
+                type: "warning",
+                message: "该Github账号未绑定本站账号",
+              });
+              loading.close()
+              return;
+            }
+            this.$message({
+              type: "error",
+              message: res.Message,
+            });
+            loading.close()
+            return;
+          }
+          setToken(res.Data.Jwt);
+          this.$message({
+            type: "success",
+            message: "登录成功!",
+          });
+          loading.close();
+          this.getMetaArticles();
+        })
+        .catch((err) => {
+          this.$message({
+            type: "error",
+            message: "连接Github失败,请重试",
+          });
+          loading.close();
+          this.$router.replace({
+            path: "/login",
+          });
+        });
+    } else {
+      this.getMetaArticles();
+    }
   },
 };
 </script>

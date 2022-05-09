@@ -107,7 +107,7 @@ export default {
         nanoId: this.nanoid,
       };
       this.$axios.post("/user/register", registerDto).then((res) => {
-        console.log(res);
+        // console.log(res);
         let r = res.Code;
         if (r != 1) {
           if (r == 103) {
