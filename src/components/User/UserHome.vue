@@ -1,6 +1,6 @@
 <template>
   <div class="outer">
-    <Navigation />
+    <Navigation :showArg="showArg" />
     <div class="side"></div>
     <div class="background"></div>
     <el-timeline class="main">
@@ -27,6 +27,25 @@
       @current-change="changePage"
     >
     </el-pagination>
+
+    <el-dialog title="绑定本站账号" :visible.sync="dialogFormVisible">
+      <el-form :model="form">
+        <el-form-item label="用户名" :label-width="formLabelWidth">
+          <el-input v-model="form.username" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" :label-width="formLabelWidth">
+          <el-input
+            v-model="form.password"
+            autocomplete="off"
+            show-password
+          ></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="cancel()">取 消</el-button>
+        <el-button type="primary" @click="confirm()">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -44,6 +63,13 @@ export default {
       totalPage: 1,
       articles: [],
       token: getToken(),
+      dialogFormVisible: false,
+      form: {
+        username: "",
+        password: "",
+      },
+      formLabelWidth: "100px",
+      showArg: true,
     };
   },
   methods: {
@@ -70,9 +96,55 @@ export default {
       this.pageNum = currentNum;
       this.getMetaArticles();
     },
+    confirm() {
+      let dto = {
+        username: this.form.username,
+        password: this.form.password,
+        code: this.$route.query.code,
+      };
+      this.$axios
+        .post("/user/github/bind", dto)
+        .then((res) => {
+          console.log(res);
+          this.dialogFormVisible = false;
+          if (res.Code != 1) {
+            this.$message({
+              type: "error",
+              message: res.Message,
+            });
+            this.$router.replace({
+              path: "/login",
+            });
+          } else {
+            this.$message({
+              type: "success",
+              message: "绑定成功!",
+            });
+            setToken(res.Data.Jwt);
+            this.showArg = false;
+            this.getMetaArticles();
+          }
+        })
+        .catch((err) => {
+          this.$message({
+            type: "error",
+            message: "未知错误!",
+          });
+          this.dialogFormVisible = false;
+          this.$router.replace({
+            path: "/login",
+          });
+        });
+    },
+    cancel() {
+      this.dialogFormVisible = false;
+      this.$router.replace({
+        path: "/login",
+      });
+    },
   },
   mounted() {
-    if (this.$route.query.code) {
+    if (this.$route.query.code && !getToken()) {
       const loading = this.$loading({
         lock: true,
         text: "正在读取Github用户信息",
@@ -83,23 +155,24 @@ export default {
         code: this.$route.query.code,
       };
       this.$axios
-        .post("/user/github", dto, { timeout: 10000 })
+        .post("/user/github", dto, { timeout: 15000 })
         .then((res) => {
-          console.log(res);
-          if (res && res.Code != 1 && !res.Data.Jwt) {
+          // console.log(res);
+          if (res && res.Code != 1) {
             if (res.Code === 110) {
               this.$message({
                 type: "warning",
                 message: "该Github账号未绑定本站账号",
               });
-              loading.close()
+              loading.close();
+              this.dialogFormVisible = true;
               return;
             }
             this.$message({
               type: "error",
               message: res.Message,
             });
-            loading.close()
+            loading.close();
             return;
           }
           setToken(res.Data.Jwt);
@@ -108,9 +181,11 @@ export default {
             message: "登录成功!",
           });
           loading.close();
+          this.showArg = false;
           this.getMetaArticles();
         })
         .catch((err) => {
+          console.log("?");
           this.$message({
             type: "error",
             message: "连接Github失败,请重试",

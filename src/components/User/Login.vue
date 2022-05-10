@@ -169,9 +169,6 @@ export default {
         this.imgUrl = `${baseURL}/captcha/${this.captchaId}.png?nanoid=${this.nanoid}`;
       });
     },
-    github() {
-      alert("hello");
-    },
   },
   mounted() {
     this.GetCaptchaPicture();

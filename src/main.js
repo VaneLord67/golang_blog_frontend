@@ -1,6 +1,6 @@
 import Vue from 'vue'
 // import ElementUI from 'element-ui';
-import { Button, Message, MessageBox, Pagination, Input, Tooltip, Icon, Card, Timeline, TimelineItem, Backtop, Menu, MenuItem, Form, FormItem, Empty, Loading, } from 'element-ui';
+import { Button, Message, MessageBox, Pagination, Input, Tooltip, Icon, Card, Timeline, TimelineItem, Backtop, Menu, MenuItem, Form, FormItem, Empty, Loading, Dialog } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import { Axios } from './service'
 import App from './App.vue'
@@ -67,6 +67,7 @@ Vue.use(MenuItem)
 Vue.use(Form);
 Vue.use(FormItem);
 Vue.use(Empty);
+Vue.use(Dialog);
 // Vue.use(MessageBox);
 // Vue.use(ElementUI);
 Vue.use(VueRouter);

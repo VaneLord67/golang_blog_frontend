@@ -11,7 +11,7 @@
       <div>首页</div>
     </el-menu-item>
     <el-menu-item @click="turnToArticleHome()">
-      <div>{{isPC ? "Markdown文档" : "文档"}}</div>
+      <div>{{ isPC ? "Markdown文档" : "文档" }}</div>
     </el-menu-item>
     <el-menu-item index="/user/home" class="menuRightEnd">
       <el-tooltip
@@ -38,11 +38,14 @@
         ></el-button>
       </el-tooltip>
     </el-menu-item>
-    <el-menu-item index="/register" class="menuRight">
+    <el-menu-item index="/register" class="menuRight" v-show="showLogReg">
       <div>注册</div>
     </el-menu-item>
-    <el-menu-item index="/login" class="menuRight">
+    <el-menu-item index="/login" class="menuRight" v-show="showLogReg">
       <div>登录</div>
+    </el-menu-item>
+    <el-menu-item class="menuRight" v-show="!showLogReg" @click="logout()">
+      <div>注销</div>
     </el-menu-item>
     <el-menu-item v-if="showInput" class="menuRightInput">
       <el-input
@@ -58,6 +61,7 @@
 </template>
 
 <script>
+import { setToken, getToken } from "@/utils/storage.js";
 export default {
   name: "Navigation",
   data() {
@@ -65,17 +69,22 @@ export default {
       navigationInput: "",
       showInput: true,
       isPC: true,
+      showLogReg: false,
     };
   },
   watch: {
-    $route(n,o){
-        if(n.fullPath !== o.fullPath){ //监听路由参数是否变化
-          // console.log("change")
-          this.getQuery(this.navigationInput)
-        } 
+    $route(n, o) {
+      if (n.fullPath !== o.fullPath) {
+        //监听路由参数是否变化
+        // console.log("change")
+        this.getQuery(this.navigationInput);
+      }
+    },
+    showArg(newValue, oldValue) {
+      this.showLogReg = newValue;
     }
   },
-  props: ["valid","getQuery"],
+  props: ["valid", "getQuery", "showArg"],
   methods: {
     tunrToHome() {
       this.$router.push({ name: "homePage" });
@@ -91,30 +100,54 @@ export default {
       // } else {
       //   this.$router.push({name: 'ArticleHome', query: {query: this.navigationInput}})
       // }
-      this.$router.push({name: 'ArticleHome', query: {query: this.navigationInput}})
+      this.$router.push({
+        name: "ArticleHome",
+        query: { query: this.navigationInput },
+      });
     },
     turnToArticleHome() {
       // console.log("test")
-      if (this.$route.path != '/article/home') {
-        this.$router.push({name: 'ArticleHome', query: {query: this.navigationInput}})
+      if (this.$route.path != "/article/home") {
+        this.$router.push({
+          name: "ArticleHome",
+          query: { query: this.navigationInput },
+        });
       } else {
         // this.getQuery('')
-        this.navigationInput = ''
-        this.$router.push({name: 'ArticleHome', query: {query: ''}})
+        this.navigationInput = "";
+        this.$router.push({ name: "ArticleHome", query: { query: "" } });
       }
-    }
+    },
+    logout() {
+      setToken("");
+      this.showLogReg = true;
+      this.$router.replace({path: "/login"});
+    },
   },
   mounted() {
+    let token = getToken()
+    if (token == "" || token == null || token == undefined) {
+      this.showLogReg = true;
+    } else {
+      this.$axios.get("/user/isLogin").then((res) => {
+        // console.log(res)
+        if (res.Data.IsLogin === true) {
+          this.showLogReg = false;
+        } else {
+          this.showLogReg = true;
+        }
+      });
+    }
     if (this.valid === false) {
       this.showInput = false;
     } else {
       this.showInput = true;
     }
     if (this.$route.query.query) {
-      this.navigationInput = this.$route.query.query
+      this.navigationInput = this.$route.query.query;
     }
     if (document.documentElement.clientWidth <= 450) {
-      this.isPC = false
+      this.isPC = false;
     }
   },
 };
@@ -154,6 +187,5 @@ export default {
   div {
     font-size: 12px;
   }
-
 }
 </style>
