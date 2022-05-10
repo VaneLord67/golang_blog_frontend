@@ -67,11 +67,10 @@
       <div class="editor">
         <v-md-editor
           :class="editorClass"
-          mode=""
           :left-toolbar="leftToolbar"
           :right-toolbar="rightToolbar"
           v-model="text"
-          :include-level="[1, 3]"
+          :include-level="[1, 4]"
           :default-show-toc="showToc"
           @save="UpdateContent()"
         />
@@ -195,7 +194,8 @@ export default {
         });
     },
     Update() {
-      this.editorClass = "";
+      // this.editorClass = "";
+      this.editorClass = "magicShow";
       // console.log(this.isPC)
       if (!this.isPC) {
         this.toolsClass = "toolsInPhone";
@@ -305,14 +305,29 @@ export default {
   .v-md-editor__editor-wrapper {
   display: none;
 }
+
+.magicShow
+  .v-md-editor__right-area
+  .v-md-editor__main
+  .v-md-editor__editor-wrapper {
+  height: 100vh;
+}
+
+.scrollbar__wrap {
+  height: 100vh;
+}
+
 </style>
 
 <style scoped>
+
 .editor {
   float: left;
   text-align: left;
   width: 70vw;
   margin-left: 38px;
+  height: 100vh;
+  /* overflow: auto; */
 }
 
 .tools {

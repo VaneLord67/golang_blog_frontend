@@ -154,6 +154,7 @@ export default {
 </script>
 
 <style scoped>
+
 .menuRightEnd {
   float: right;
   margin-right: 30px;

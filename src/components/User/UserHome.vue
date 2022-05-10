@@ -105,7 +105,7 @@ export default {
       this.$axios
         .post("/user/github/bind", dto)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.dialogFormVisible = false;
           if (res.Code != 1) {
             this.$message({
@@ -185,7 +185,6 @@ export default {
           this.getMetaArticles();
         })
         .catch((err) => {
-          console.log("?");
           this.$message({
             type: "error",
             message: "连接Github失败,请重试",
