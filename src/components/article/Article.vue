@@ -310,11 +310,11 @@ export default {
   .v-md-editor__right-area
   .v-md-editor__main
   .v-md-editor__editor-wrapper {
-  height: 100vh;
+  height: calc(100vh - 120px);
 }
 
-.scrollbar__wrap {
-  height: 100vh;
+.v-md-editor__preview-wrapper {
+  height: calc(100vh - 120px);
 }
 
 </style>
@@ -326,8 +326,6 @@ export default {
   text-align: left;
   width: 70vw;
   margin-left: 38px;
-  height: 100vh;
-  /* overflow: auto; */
 }
 
 .tools {
