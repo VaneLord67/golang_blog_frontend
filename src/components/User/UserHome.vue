@@ -269,8 +269,8 @@ export default {
 
   .page {
     position: fixed;
-    left: 29vw;
-    top: 80vh;
+    left: 0vw;
+    top: 86vh;
   }
 }
 </style>

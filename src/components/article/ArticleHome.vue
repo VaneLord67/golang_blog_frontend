@@ -138,8 +138,8 @@ export default {
 
   .page {
     position: fixed;
-    left: 29vw;
-    top: 85vh;
+    left: 0vw;
+    top: 86vh;
   }
 
   .head {
