@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import { setToken, getToken } from "@/utils/storage.js";
+import { setToken, getToken, removeToken } from "@/utils/storage.js";
 export default {
   name: "Navigation",
   data() {
@@ -135,6 +135,7 @@ export default {
           this.showLogReg = false;
         } else {
           this.showLogReg = true;
+          removeToken()
         }
       });
     }
