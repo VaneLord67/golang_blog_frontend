@@ -6,44 +6,19 @@
     <div class="back">
       <div class="login">
         <h1>注册</h1>
-        <el-form
-          :label-position="labelPosition"
-          label-width="60px"
-          :model="formLabelAlign"
-        >
+        <el-form :label-position="labelPosition" label-width="60px" :model="formLabelAlign">
           <el-form-item label="" style="padding-right: 10%">
-            <el-input
-              size="large"
-              v-model="formLabelAlign.username"
-              placeholder="请输入用户名"
-            ></el-input>
+            <el-input size="large" v-model="formLabelAlign.username" placeholder="请输入用户名"></el-input>
           </el-form-item>
           <el-form-item label="" style="padding-right: 10%">
-            <el-input
-              size="large"
-              v-model="formLabelAlign.password"
-              show-password
-              placeholder="请输入密码"
-            ></el-input>
+            <el-input size="large" v-model="formLabelAlign.password" show-password placeholder="请输入密码"></el-input>
           </el-form-item>
           <el-form-item label="" style="padding-right: 10%">
-            <el-input
-              size="large"
-              v-model="formLabelAlign.captcha"
-              placeholder="请输入验证码"
-            ></el-input>
+            <el-input size="large" v-model="formLabelAlign.captcha" placeholder="请输入验证码"></el-input>
           </el-form-item>
-          <el-button type="success" @click="Register()" class="loginBtn"
-            >注册</el-button
-          >
-          <el-button type="primary" @click="GetCaptchaPicture()"
-            >刷新验证码</el-button
-          >
-          <img
-            :src="imgUrl"
-            alt=""
-            style="padding-left: 5%; padding-right: 5%; width: 70%"
-          />
+          <el-button type="success" @click="Register()" class="loginBtn">注册</el-button>
+          <el-button type="primary" @click="GetCaptchaPicture()">刷新验证码</el-button>
+          <img :src="imgUrl" alt="" style="padding-left: 5%; padding-right: 5%; width: 70%" />
         </el-form>
       </div>
     </div>
@@ -54,7 +29,7 @@
 import { setToken } from "@/utils/storage.js";
 import { baseURL } from "@/service.js";
 import { nanoid } from "nanoid";
-import Navigation from "../Common/Navigation";
+import Navigation from "../common/Navigation.vue";
 export default {
   name: "Register",
   components: {

@@ -5,89 +5,39 @@
     </div>
     <div class="main">
       <div :class="toolsClass" v-if="permission">
-        <el-tooltip
-          class="item"
-          effect="dark"
-          content="编辑该Markdown文档"
-          placement="left-start"
-          v-show="isPC || editorClass"
-        >
-          <el-button
-            @click="Update()"
-            type="primary"
-            icon="el-icon-edit"
-            circle
-          ></el-button>
+        <el-tooltip class="item" effect="dark" content="编辑该Markdown文档" placement="left-start"
+          v-show="isPC || editorClass">
+          <el-button @click="Update()" type="primary" icon="el-icon-edit" circle></el-button>
         </el-tooltip>
-        <el-tooltip
-          class="item"
-          effect="dark"
-          content="删除该Markdown文档"
-          placement="right-start"
-          v-show="isPC || editorClass"
-        >
-          <el-button
-            @click="Delete()"
-            type="danger"
-            icon="el-icon-delete"
-            circle
-          ></el-button>
+        <el-tooltip class="item" effect="dark" content="删除该Markdown文档" placement="right-start"
+          v-show="isPC || editorClass">
+          <el-button @click="Delete()" type="danger" icon="el-icon-delete" circle></el-button>
         </el-tooltip>
         <br />
         <!-- <br/> -->
-        <el-tooltip
-          class="item"
-          effect="dark"
-          content="更新标题"
-          placement="left-end"
-          style="margin-top: 10px"
-          v-show="isPC || editorClass"
-        >
-          <el-button
-            @click="UpdateTitle()"
-            type="warning"
-            icon="el-icon-upload2"
-            circle
-          ></el-button>
+        <el-tooltip class="item" effect="dark" content="更新标题" placement="left-end" style="margin-top: 10px"
+          v-show="isPC || editorClass">
+          <el-button @click="UpdateTitle()" type="warning" icon="el-icon-upload2" circle></el-button>
         </el-tooltip>
-        <el-tooltip
-          class="item"
-          effect="dark"
-          content="预览"
-          placement="right-end"
-        >
-          <el-button
-            @click="Preview()"
-            type="success"
-            icon="el-icon-view"
-            circle
-          ></el-button>
+        <el-tooltip class="item" effect="dark" content="预览" placement="right-end">
+          <el-button @click="Preview()" type="success" icon="el-icon-view" circle></el-button>
         </el-tooltip>
       </div>
       <div class="editor">
-        <v-md-editor
-          :class="editorClass"
-          :left-toolbar="leftToolbar"
-          :right-toolbar="rightToolbar"
-          v-model="text"
-          :include-level="[1, 4]"
-          :default-show-toc="showToc"
-          @save="UpdateContent()"
-        />
+        <v-md-editor :class="editorClass" :left-toolbar="leftToolbar" :right-toolbar="rightToolbar" v-model="text"
+          :include-level="[1, 4]" :default-show-toc="showToc" @save="UpdateContent()" />
       </div>
       <div class="meta">
         标题: {{ title }}<br /><br />
         作者: {{ authorName }}
       </div>
-      <el-backtop :bottom="backBottom" :right="backRight" class="UP"
-        >UP</el-backtop
-      >
+      <el-backtop :bottom="backBottom" :right="backRight" class="UP">UP</el-backtop>
     </div>
   </div>
 </template>
 
 <script>
-import Navigation from "../Common/Navigation";
+import Navigation from "../common/Navigation.vue";
 export default {
   name: "Article",
   components: { Navigation },
@@ -299,28 +249,20 @@ export default {
 </script>
 
 <style>
-.magicHidden
-  .v-md-editor__right-area
-  .v-md-editor__main
-  .v-md-editor__editor-wrapper {
+.magicHidden .v-md-editor__right-area .v-md-editor__main .v-md-editor__editor-wrapper {
   display: none;
 }
 
-.magicShow
-  .v-md-editor__right-area
-  .v-md-editor__main
-  .v-md-editor__editor-wrapper {
+.magicShow .v-md-editor__right-area .v-md-editor__main .v-md-editor__editor-wrapper {
   height: calc(100vh - 120px);
 }
 
 .v-md-editor__preview-wrapper {
   height: calc(100vh - 120px);
 }
-
 </style>
 
 <style scoped>
-
 .editor {
   float: left;
   text-align: left;

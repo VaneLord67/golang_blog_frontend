@@ -2,18 +2,13 @@
   <div class="outer">
     <Navigation />
     <div class="createEditor">
-      <v-md-editor
-        v-model="text"
-        :include-level="[1, 3]"
-        height="91vh"
-        @save="Save()"
-      />
+      <v-md-editor v-model="text" :include-level="[1,   3]" height="91vh" @save="Save()" />
     </div>
   </div>
 </template>
 
 <script>
-import Navigation from "../Common/Navigation";
+import Navigation from "../common/Navigation.vue";
 export default {
   name: "Create",
   components: { Navigation },

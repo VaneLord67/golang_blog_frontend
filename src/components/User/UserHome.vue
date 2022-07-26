@@ -5,27 +5,12 @@
     <div class="background"></div>
     <el-timeline class="main">
       <div class="head">我的Mardown文档列表</div>
-      <el-empty
-        v-if="!articles"
-        class="empty"
-        description="还没有写过文档哦~"
-      ></el-empty>
-      <MetaArticle
-        v-for="article in articles"
-        :key="article.Id"
-        :title="article.Title"
-        :id="article.Id"
-        :authorName="article.AuthorName"
-      />
+      <el-empty v-if="!articles" class="empty" description="还没有写过文档哦~"></el-empty>
+      <MetaArticle v-for="article in articles" :key="  article.Id" :title="article.Title" :id="article.Id"
+        :authorName="article.AuthorName" />
     </el-timeline>
-    <el-pagination
-      class="page"
-      background
-      layout="prev, pager, next"
-      :page-count="totalPage"
-      :current-page="pageNum"
-      @current-change="changePage"
-    >
+    <el-pagination class="page" background layout="prev, pager, next" :page-count="totalPage" :current-page="pageNum"
+      @current-change="changePage">
     </el-pagination>
 
     <el-dialog title="绑定本站账号" :visible.sync="dialogFormVisible">
@@ -34,11 +19,7 @@
           <el-input v-model="form.username" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="密码" :label-width="formLabelWidth">
-          <el-input
-            v-model="form.password"
-            autocomplete="off"
-            show-password
-          ></el-input>
+          <el-input v-model="form.password" autocomplete="off" show-password></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -51,7 +32,7 @@
 
 <script>
 import MetaArticle from "../article/MetaArticle";
-import Navigation from "../Common/Navigation";
+import Navigation from "../common/Navigation.vue";
 import { getToken, setToken } from "@/utils/storage.js";
 export default {
   name: "UserHome",

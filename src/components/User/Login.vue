@@ -6,61 +6,26 @@
     <div class="back">
       <div class="login">
         <h1>登录</h1>
-        <el-form
-          :label-position="labelPosition"
-          label-width="60px"
-          :model="formLabelAlign"
-        >
+        <el-form :label-position="labelPosition" label-width="60px" :model="formLabelAlign">
           <el-form-item label="" style="padding-right: 10%">
-            <el-input
-              size="large"
-              v-model="formLabelAlign.username"
-              placeholder="请输入用户名"
-            ></el-input>
+            <el-input size="large" v-model="formLabelAlign.username" placeholder="请输入用户名"></el-input>
           </el-form-item>
           <el-form-item label="" style="padding-right: 10%">
-            <el-input
-              size="large"
-              v-model="formLabelAlign.password"
-              show-password
-              placeholder="请输入密码"
-            ></el-input>
+            <el-input size="large" v-model="formLabelAlign.password" show-password placeholder="请输入密码"></el-input>
           </el-form-item>
           <el-form-item label="" style="padding-right: 10%">
-            <el-input
-              size="large"
-              v-model="formLabelAlign.captcha"
-              placeholder="请输入验证码"
-            ></el-input>
+            <el-input size="large" v-model="formLabelAlign.captcha" placeholder="请输入验证码"></el-input>
           </el-form-item>
-          <el-button type="success" @click="Login()" class="loginBtn"
-            >登录</el-button
-          >
-          <el-button type="primary" @click="GetCaptchaPicture()"
-            >刷新验证码</el-button
-          >
+          <el-button type="success" @click="Login()" class="loginBtn">登录</el-button>
+          <el-button type="primary" @click="GetCaptchaPicture()">刷新验证码</el-button>
 
-          <a
-            href="https://github.com/login/oauth/authorize?client_id=cb6be1dcec6958e30b1d"
-          >
-            <el-tooltip
-              class="item"
-              effect="dark"
-              content="使用Github账号登录"
-              placement="right"
-            >
-              <img
-                src="../../assets/github.png"
-                style="height: 50px; width: 50px; float: right"
-              />
+          <a href="https://github.com/login/oauth/authorize?client_id=cb6be1dcec6958e30b1d">
+            <el-tooltip class="item" effect="dark" content="使用Github账号登录" placement="right">
+              <img src="../../assets/github.png" style="height: 50px; width: 50px; float: right" />
             </el-tooltip>
           </a>
 
-          <img
-            :src="imgUrl"
-            alt=""
-            style="padding-left: 5%; padding-right: 5%; width: 70%"
-          />
+          <img :src="imgUrl" alt="" style="padding-left: 5%; padding-right: 5%; width: 70%" />
         </el-form>
       </div>
     </div>
@@ -71,7 +36,7 @@
 import { setToken } from "@/utils/storage.js";
 import { baseURL } from "@/service.js";
 import { nanoid } from "nanoid";
-import Navigation from "../Common/Navigation";
+import Navigation from "../common/Navigation.vue";
 export default {
   name: "Login",
   components: {

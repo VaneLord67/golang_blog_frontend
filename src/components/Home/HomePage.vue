@@ -4,31 +4,29 @@
     <div class="background" @keyup.enter="enterSearch()">
       <div class="input">
         <div class="search">Search</div>
-        <el-input
-          placeholder="请输入内容 键下回车搜索"
-          prefix-icon="el-icon-search"
-          v-model="inputText"
-        >
+        <el-input placeholder="请输入内容 键下回车搜索" prefix-icon="el-icon-search" v-model="inputText">
         </el-input>
       </div>
-      <el-tooltip
-        class="item"
-        effect="dark"
-        content="友情链接~"
-        placement="right-end"
-      >
+      <el-tooltip class="item" effect="dark" content="友情链接~" placement="right-end">
         <a class="op" href="https://novel.tomsawyer2.xyz/" target="_blank"> </a>
       </el-tooltip>
     </div>
     <div class="footer">
-      <i class="el-icon-chat-dot-round"></i>
-      联系我: <a href="mailto:HUSTerD724@gmail.com">HUSTerD724@gmail.com</a>
+      <div style="margin:0 auto; padding:10px 0;">
+        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502050225" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+          <img src="../../../public/备案图标.png" style="float:left;"/>
+          <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">京公网安备 11010502050225号 
+            &nbsp;&nbsp;&nbsp;&nbsp;<i class="el-icon-chat-dot-round"></i>
+            联系我: <a href="mailto:HUSTerD724@gmail.com">HUSTerD724@gmail.com</a>
+          </p>
+        </a>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import Navigation from "../Common/Navigation";
+import Navigation from "../common/Navigation.vue";
 export default {
   name: "HomePage",
   components: {
@@ -56,10 +54,11 @@ export default {
 a {
   color: gray;
 }
+
 .footer {
   position: absolute;
   width: 100%;
-  /* height: 5%; */
+  /* height: 30px; */
   bottom: 0px;
   text-align: center;
   background-color: black;
@@ -77,6 +76,7 @@ a {
   top: 65%;
   cursor: pointer;
 }
+
 .outer {
   height: 100vh;
   overflow-y: hidden;
@@ -115,6 +115,6 @@ a {
     width: 80vw;
     margin: auto;
   }
-  
+
 }
 </style>

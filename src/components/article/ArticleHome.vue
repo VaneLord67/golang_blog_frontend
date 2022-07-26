@@ -6,28 +6,17 @@
       <div class="head">
         Markdown文档
       </div>
-      <MetaArticle
-        v-for="article in articles"
-        :key="article.Id"
-        :title="article.Title"
-        :id="article.Id"
-        :authorName="article.AuthorName"
-      />
+      <MetaArticle v-for="article in articles" :key="article.Id" :title="article.Title" :id="article.Id"
+        :authorName="article.AuthorName" />
     </el-timeline>
-    <el-pagination
-      class="page"
-      background
-      layout="prev, pager, next"
-      :page-count="totalPage"
-      :current-page="pageNum"
-      @current-change="changePage"
-    >
+    <el-pagination class="page" background layout="prev, pager, next" :page-count="totalPage" :current-page="pageNum"
+      @current-change="changePage">
     </el-pagination>
   </div>
 </template>
 
 <script>
-import Navigation from "../Common/Navigation";
+import Navigation from "../common/Navigation.vue";
 import MetaArticle from "../article/MetaArticle";
 export default {
   name: "ArticleHome",
@@ -112,8 +101,8 @@ export default {
 }
 
 .head {
-  font-weight: bold; 
-  font-size: 33px; 
+  font-weight: bold;
+  font-size: 33px;
   padding-bottom: 10px
 }
 
