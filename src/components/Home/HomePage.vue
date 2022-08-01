@@ -16,7 +16,9 @@
         <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502050225" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
           <img src="../../../public/备案图标.png" style="float:left;"/>
           <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">京公网安备 11010502050225号 
-            &nbsp;&nbsp;&nbsp;&nbsp;<i class="el-icon-chat-dot-round"></i>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备2022021219号-1</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <i class="el-icon-chat-dot-round"></i>
             联系我: <a href="mailto:HUSTerD724@gmail.com">HUSTerD724@gmail.com</a>
           </p>
         </a>
